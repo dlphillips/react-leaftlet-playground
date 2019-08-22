@@ -21,7 +21,7 @@ function App() {
           Simple react-leaflet example started with create-react-app.
         </p>
         <a
-          className="App-link"
+          className="App-link pad-bottom"
           href="https://reactjs.org"
           target="_blank"
           rel="noopener noreferrer"
@@ -29,7 +29,7 @@ function App() {
           Learn React
         </a>
         <a
-          className="App-link"
+          className="App-link pad-bottom"
           href="https://react-leaflet.js.org/en/"
           target="_blank"
           rel="noopener noreferrer"
