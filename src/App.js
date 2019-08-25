@@ -28,7 +28,7 @@ function App() {
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
               <p>
-                Simple react-leaflet example started with create-react-app.
+                Simple react-leaflet example created with create-react-app.
               </p>
           </header>
         </Grid>
