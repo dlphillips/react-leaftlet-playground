@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AddressForm = () => {
+const AddressForm = (props) => {
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
@@ -38,7 +38,7 @@ const AddressForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(address, city, state, zip);
+    props.getFormValues(address, city, state, zip);
   }
 
   const classes = useStyles();

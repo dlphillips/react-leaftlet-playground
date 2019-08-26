@@ -1,9 +1,9 @@
 import React from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
-function LocationMap(props) {
+const LocationMap = (props) => {
   
-  const position = [Number(props.lat), Number(props.lng)];
+  const position = [props.lat, props.lng];
   
   return (
     <Map center={position} zoom={Number(props.zoom)}>

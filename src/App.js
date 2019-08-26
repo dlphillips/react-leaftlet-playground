@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { makeStyles } from '@material-ui/core/styles';
+import fetch from 'node-fetch';
 import Grid from '@material-ui/core/Grid';
 import AddressForm from './components/AddressForm.js'
+import { makeStyles } from '@material-ui/core/styles';
 import LocationMap from './components/Maps/Location.js'
+import dotenv from 'dotenv';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,9 +19,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function App() {
+const App = () => {
+
+  dotenv.config();
+  const mqKey = process.env.REACT_APP_MAPQUEST_KEY;
+
+  const [lng, setLng] = useState(-85);
+  const [lat, setLat] = useState(34);
+
   const classes = useStyles();
-  
+
+  const getFormValues = (address, city, state, zip) => {
+    fetch(`https://www.mapquestapi.com/geocoding/v1/address?key=${mqKey}&inFormat=kvp&outFormat=json&location=${address}+${city}+${state}+${zip}&thumbMaps=false`)
+      .then(res => res.json())
+      .then(json => {
+        setLng(json.results[0].locations[0].displayLatLng.lng);
+        setLat(json.results[0].locations[0].displayLatLng.lat);
+      });
+  }
+
   return (
     <div className="App">
       <div className={classes.root}>
@@ -33,12 +51,14 @@ function App() {
           </header>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <AddressForm/>
+          <AddressForm
+            getFormValues={getFormValues}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <LocationMap
-            lat='33.885498'
-            lng='-78.446958'
+            lat={lat}
+            lng={lng}
             zoom='13'
           />
         </Grid>
