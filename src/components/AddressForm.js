@@ -5,6 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
@@ -28,6 +34,9 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  group: {
+    margin: theme.spacing(1, 0),
+  },
 }));
 
 const AddressForm = (props) => {
@@ -35,16 +44,17 @@ const AddressForm = (props) => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zip, setZip] = useState('');
+  const [baseMap, setBaseMap] = React.useState('A');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.getFormValues(address, city, state, zip);
+    props.getFormValues(address, city, state, zip, baseMap);
   }
 
   const classes = useStyles();
 
   return (
-    <form>
+    <FormControl component="fieldset">
       <Typography variant="h6" gutterBottom>
         Enter address
       </Typography>
@@ -95,6 +105,20 @@ const AddressForm = (props) => {
             onChange={e => setZip(e.target.value)}
           />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormLabel component="legend">Base Map</FormLabel>
+          <RadioGroup
+            aria-label="base map"
+            name="baseMap"
+            className={classes.group}
+            value={baseMap}
+            onChange={e => setBaseMap(e.target.value)}
+          >
+            <FormControlLabel value="A" control={<Radio />} label="Base Map A" />
+            <FormControlLabel value="B" control={<Radio />} label="Base Map B" />
+            <FormControlLabel value="C" control={<Radio />} label="Base Map C" />
+          </RadioGroup>
+        </Grid>
         <Grid item xs={12} sm={12}>
           <Button
             type="submit"
@@ -108,7 +132,7 @@ const AddressForm = (props) => {
           </Button>
         </Grid>
       </Grid>
-    </form>
+    </FormControl>
   );
 };
 
