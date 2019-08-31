@@ -1,0 +1,64 @@
+{
+  "layers":[ 
+    {
+      "name": "Thunderforest - OpenCycleMap",
+      "attribution": "&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://tile.thunderforest.com/cycle/{z}/{x}/{y}.png",
+      "apiKey": "REACT_APP_THUNDERFOREST_KEY"
+    },
+    {
+      "name": "Thunderforest - Transport",
+      "attribution": "&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://tile.thunderforest.com/transport/{z}/{x}/{y}.png",
+      "apiKey": "REACT_APP_THUNDERFOREST_KEY"
+    },
+    {
+      "name": "Thunderforest - Landscape",
+      "attribution": "&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://tile.thunderforest.com/landscape/{z}/{x}/{y}.png",
+      "apiKey": "REACT_APP_THUNDERFOREST_KEY"
+    },
+    {
+      "name": "Thunderforest - Outdoors",
+      "attribution": "&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://tile.thunderforest.com/outdoors/{z}/{x}/{y}.png",
+      "apiKey": "REACT_APP_THUNDERFOREST_KEY"
+    },
+    {
+      "name": "Thunderforest - Transport Dark",
+      "attribution": "&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png",
+      "apiKey": "REACT_APP_THUNDERFOREST_KEY"
+    },
+    {
+      "name": "Thunderforest - Spinal Map",
+      "attribution": "&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://tile.thunderforest.com/spinal-map/{z}/{x}/{y}.png",
+      "apiKey": "REACT_APP_THUNDERFOREST_KEY"
+    },
+    {
+      "name": "Thunderforest - Pioneer",
+      "attribution": "&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://tile.thunderforest.com/pioneer/{z}/{x}/{y}.png",
+      "apiKey": "REACT_APP_THUNDERFOREST_KEY"
+    },
+    {
+      "name": "Thunderforest - Mobile Atlas",
+      "attribution": "&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://tile.thunderforest.com/mobile-atlas/{z}/{x}/{y}.png",
+      "apiKey": "REACT_APP_THUNDERFOREST_KEY"
+    },
+    {
+      "name": "Thunderforest - Neighbourhood",
+      "attribution": "&copy; <a href='http://www.thunderforest.com/'>Thunderforest</a>, &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://tile.thunderforest.com/neighbourhood/{z}/{x}/{y}.png",
+      "apiKey": "REACT_APP_THUNDERFOREST_KEY"
+    },
+    {
+      "name": "OpenTopoMap",
+      "attribution": "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
+      "url": "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+      "apiKey": ""
+    }
+  ]
+}
