@@ -55,7 +55,6 @@ const AddressForm = (props) => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
-            required
             id="address1"
             name="address1"
             label="Address"
@@ -67,7 +66,6 @@ const AddressForm = (props) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
             id="city"
             name="city"
             label="City"
@@ -89,7 +87,6 @@ const AddressForm = (props) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
             id="zip"
             name="zip"
             label="Zip / Postal code"

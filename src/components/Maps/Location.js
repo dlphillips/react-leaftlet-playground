@@ -8,19 +8,19 @@ const tfKey = process.env.REACT_APP_THUNDERFOREST_KEY;
 const LocationMap = (props) => {
   
   const position = [props.lat, props.lng];
-  const baseMap = props.baseMap;
+  const { baseMap, street, city, state, zip } = props;
 
   return (
     <Map center={position} zoom={Number(props.zoom)}>
-    <TileLayer
-        attribution={baseMap.attribution}
-        url={(baseMap.apiKey) ? `${baseMap.url}?apikey=${tfKey}`: baseMap.url}
-    />
-    <Marker position={position}>
-        <Popup>
-        #4 Private Drive <br /> Ocean Isle Beach, NC.
-        </Popup>
-    </Marker>
+      <TileLayer
+          attribution={baseMap.attribution}
+          url={(baseMap.apiKey) ? `${baseMap.url}?apikey=${tfKey}`: baseMap.url}
+      />
+      <Marker position={position}>
+          <Popup>
+            {street} <br /> {`${city}, ${state} ${zip}`}
+          </Popup>
+      </Marker>
     </Map>
   );
 }

@@ -30,6 +30,11 @@ const App = () => {
 
   const [lng, setLng] = useState(-85);
   const [lat, setLat] = useState(34);
+  const [resStreet, setResStreet] = useState('');
+  const [resCity, setResCity] = useState('');
+  const [resState, setResState] = useState('');
+  const [resZip, setResZip] = useState('');
+
   const [baseMap, setBaseMap] = useState('Thunderforest - Neighbourhood');
 
   const classes = useStyles();
@@ -40,12 +45,15 @@ const App = () => {
       .then(json => {
         setLng(json.results[0].locations[0].displayLatLng.lng);
         setLat(json.results[0].locations[0].displayLatLng.lat);
-        console.log(zip);
+        setResStreet(json.results[0].locations[0].street);
+        setResCity(json.results[0].locations[0].adminArea5);
+        setResState(json.results[0].locations[0].adminArea3);
+        setResZip(json.results[0].locations[0].postalCode);
+        console.log(json.results[0]);
       });
   }
 
   const getBaseLayer = (baseMap) => {
-    console.log(baseMap);
     setBaseMap(baseMap);
   }
 
@@ -78,6 +86,10 @@ const App = () => {
           <LocationMap
             lat={lat}
             lng={lng}
+            street={resStreet}
+            city={resCity}
+            state={resState}
+            zip={resZip}
             zoom='13'
             baseMap={getBaseMapObject(baseMap)}
           />
