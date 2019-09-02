@@ -67,7 +67,7 @@ const App = () => {
           setResState(json.results[0].locations[0].adminArea3);
           setResZip(json.results[0].locations[0].postalCode);
           console.log(companyPascal);
-          console.log(json.results[0].locations[0].adminArea5+'_'+json.results[0].locations[0].adminArea3);
+          console.log(changeCase.pascalCase(json.results[0].locations[0].adminArea5)+'_'+json.results[0].locations[0].adminArea3);
         });
     }
     else {
