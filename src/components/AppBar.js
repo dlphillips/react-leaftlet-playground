@@ -53,9 +53,9 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 100,
+      width: 120,
       '&:focus': {
-        width: 140,
+        width: 200,
       },
     },
   },
@@ -88,6 +88,9 @@ export default function SearchAppBar(props) {
           <Typography className={classes.title} variant="h6" noWrap>
             Enter company name/address
           </Typography>
+          <IconButton className={classes.iconButton} aria-label="search" onClick={handleSearch}>
+            <SearchIcon />
+          </IconButton>
           <div className={classes.search}>
             <InputBase
               placeholder="Search…"
@@ -98,9 +101,6 @@ export default function SearchAppBar(props) {
               inputProps={{ 'aria-label': 'search' }}
               onChange={e => setAddressSearch(e.target.value)}
             />
-            <IconButton className={classes.iconButton} aria-label="search" onClick={handleSearch}>
-              <SearchIcon />
-            </IconButton>
           </div>
         </Toolbar>
       </AppBar>
