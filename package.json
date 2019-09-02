@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",
+    "change-case": "^3.1.0",
     "dotenv": "^8.1.0",
     "eslint-utils": "^1.4.2",
     "leaflet": "^1.5.1",
@@ -13,7 +14,9 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-leaflet": "^2.4.0",
-    "react-scripts": "3.1.1"
+    "react-scripts": "3.1.1",
+    "react-spring": "^8.0.27",
+    "toasted-notes": "^3.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

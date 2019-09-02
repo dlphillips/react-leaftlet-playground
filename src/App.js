@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import fetch from 'node-fetch';
-import Grid from '@material-ui/core/Grid';
-import AddressForm from './components/AddressForm.js'
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react'
+import './App.css'
+import fetch from 'node-fetch'
+import Grid from '@material-ui/core/Grid'
+import AppBar from './components/AppBar.js'
+import { makeStyles } from '@material-ui/core/styles'
 import LocationMap from './components/Maps/Location.js'
 import BaseMapSelect from './components/BaseMapSelect.js'
+import toast from 'toasted-notes' 
+import 'toasted-notes/src/styles.css'
+import changeCase from 'change-case'
 
 import dotenv from 'dotenv';
 
@@ -30,7 +32,7 @@ const useStyles = makeStyles(theme => ({
   containerClasses: {
     backgroundColor: '#fff',
     padding: '10px',
-  }
+  },
 }));
 
 const App = () => {
@@ -44,22 +46,33 @@ const App = () => {
   const [resCity, setResCity] = useState('');
   const [resState, setResState] = useState('');
   const [resZip, setResZip] = useState('');
-
+  const [inputError, setInputError] = useState('');
   const [baseMap, setBaseMap] = useState('OpenStreetMap');
 
   const classes = useStyles();
 
-  const getFormValues = (address, city, state, zip) => {
-    fetch(`https://www.mapquestapi.com/geocoding/v1/address?key=${mqKey}&inFormat=kvp&outFormat=json&location=${address}+${city}+${state}+${zip}&thumbMaps=false`)
-      .then(res => res.json())
-      .then(json => {
-        setLng(json.results[0].locations[0].displayLatLng.lng);
-        setLat(json.results[0].locations[0].displayLatLng.lat);
-        setResStreet(json.results[0].locations[0].street);
-        setResCity(json.results[0].locations[0].adminArea5);
-        setResState(json.results[0].locations[0].adminArea3);
-        setResZip(json.results[0].locations[0].postalCode);
-      });
+  const geocodeSearch = (searchValue) => {
+    if (searchValue.indexOf('/')>-1) {
+      const searchSplit = searchValue.split('/');
+      const company = searchSplit[0].split().join();
+      const companyPascal = changeCase.pascalCase(company)
+      const address = searchSplit[1].split(' ').join('+');
+      fetch(`https://www.mapquestapi.com/geocoding/v1/address?key=${mqKey}&inFormat=kvp&outFormat=json&location=${address}&thumbMaps=false`)
+        .then(res => res.json())
+        .then(json => {
+          setLng(json.results[0].locations[0].displayLatLng.lng);
+          setLat(json.results[0].locations[0].displayLatLng.lat);
+          setResStreet(json.results[0].locations[0].street);
+          setResCity(json.results[0].locations[0].adminArea5);
+          setResState(json.results[0].locations[0].adminArea3);
+          setResZip(json.results[0].locations[0].postalCode);
+          console.log(companyPascal);
+          console.log(json.results[0].locations[0].adminArea5+'_'+json.results[0].locations[0].adminArea3);
+        });
+    }
+    else {
+      setInputError('No company submitted. Please try again')
+    }
   }
 
   const getBaseLayer = (baseMap) => {
@@ -71,27 +84,26 @@ const App = () => {
     return baseMapObj
   }
 
+  const reportError = () => {
+    toast.notify(inputError);
+    setInputError('');
+  }
+
   return (
     <div className="App">
-      <div className={classes.root}>
+      <div className={classes.root}>        
+        { 
+          inputError &&
+            reportError()
+        }
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12}>
-            <header className="App-header">
-              <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                  react-leaflet example started with create-react-app.
-                </p>
-            </header>
+            <AppBar
+              handleSearch={geocodeSearch}
+            />
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Grid container className={classes.containerClasses} style={{ marginBottom: '10px' }}>
-              <Grid item xs={12} sm={12}>
-                <AddressForm
-                  getFormValues={getFormValues}
-                />
-              </Grid>
-            </Grid>
-            <Grid container className={classes.containerClasses} style={{ maxHeight: 240, overflow: 'auto' }}>
+            <Grid container className={classes.containerClasses}>
               <Grid item xs={12} sm={12}>
                 <BaseMapSelect
                   getBaseLayer={getBaseLayer}

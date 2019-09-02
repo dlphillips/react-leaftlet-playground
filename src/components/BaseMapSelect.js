@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import Radio from '@material-ui/core/Radio';
+import Tooltip from '@material-ui/core/Tooltip';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -40,7 +41,9 @@ const BaseMapSelect = (props) => {
 
   const RenderLayerOptions = () => {
     return tileLayers.layers.map(layer => (
-      <FormControlLabel key={layer.name} value={layer.name} control={<Radio />} label={layer.name} />
+      <Tooltip title={layer.name} placement="top" key={layer.name} >
+        <FormControlLabel value={layer.name} control={<Radio />} label={layer.name} />
+      </Tooltip>
     ));
   }
 
