@@ -11,11 +11,6 @@ import FormControl from '@material-ui/core/FormControl';
 import * as tileLayers from './Maps/tileLayers.json';
 
 const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -43,7 +38,7 @@ const BaseMapSelect = (props) => {
 
   const classes = useStyles();
 
-  function RenderLayerOptions() {
+  const RenderLayerOptions = () => {
     return tileLayers.layers.map(layer => (
       <FormControlLabel key={layer.name} value={layer.name} control={<Radio />} label={layer.name} />
     ));

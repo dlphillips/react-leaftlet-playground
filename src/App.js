@@ -13,13 +13,23 @@ import dotenv from 'dotenv';
 import * as tileLayers from './components/Maps/tileLayers.json';
 
 const useStyles = makeStyles(theme => ({
+  '@global': {
+    body: {
+      backgroundColor: '#282c34',
+    },
+  },
   root: {
     flexGrow: 1,
+    padding: '10px',
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+  },
+  containerClasses: {
+    backgroundColor: '#fff',
+    padding: '10px',
   }
 }));
 
@@ -35,7 +45,7 @@ const App = () => {
   const [resState, setResState] = useState('');
   const [resZip, setResZip] = useState('');
 
-  const [baseMap, setBaseMap] = useState('Thunderforest - Neighbourhood');
+  const [baseMap, setBaseMap] = useState('OpenStreetMap');
 
   const classes = useStyles();
 
@@ -49,7 +59,6 @@ const App = () => {
         setResCity(json.results[0].locations[0].adminArea5);
         setResState(json.results[0].locations[0].adminArea3);
         setResZip(json.results[0].locations[0].postalCode);
-        console.log(json.results[0]);
       });
   }
 
@@ -65,37 +74,45 @@ const App = () => {
   return (
     <div className="App">
       <div className={classes.root}>
-      <Grid container style={{ padding: 10 }} spacing={1}>
-        <Grid item xs={12} sm={12}>
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-              <p>
-                Simple react-leaflet example created with create-react-app.
-              </p>
-          </header>
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={12}>
+            <header className="App-header">
+              <img src={logo} className="App-logo" alt="logo" />
+                <p>
+                  react-leaflet example started with create-react-app.
+                </p>
+            </header>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Grid container className={classes.containerClasses} style={{ marginBottom: '10px' }}>
+              <Grid item xs={12} sm={12}>
+                <AddressForm
+                  getFormValues={getFormValues}
+                />
+              </Grid>
+            </Grid>
+            <Grid container className={classes.containerClasses} style={{ maxHeight: 200, overflow: 'auto' }}>
+              <Grid item xs={12} sm={12}>
+                <BaseMapSelect
+                  getBaseLayer={getBaseLayer}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={8}>
+            <LocationMap
+              lat={lat}
+              lng={lng}
+              street={resStreet}
+              city={resCity}
+              state={resState}
+              zip={resZip}
+              zoom='13'
+              baseMap={getBaseMapObject(baseMap)}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <AddressForm
-            getFormValues={getFormValues}
-          />
-          <BaseMapSelect
-            getBaseLayer={getBaseLayer}
-          />
-        </Grid>
-        <Grid item xs={12} sm={8}>
-          <LocationMap
-            lat={lat}
-            lng={lng}
-            street={resStreet}
-            city={resCity}
-            state={resState}
-            zip={resZip}
-            zoom='13'
-            baseMap={getBaseMapObject(baseMap)}
-          />
-        </Grid>
-      </Grid>
-    </div>
+      </div>
     </div>
   );
 }
