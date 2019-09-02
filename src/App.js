@@ -91,7 +91,7 @@ const App = () => {
                 />
               </Grid>
             </Grid>
-            <Grid container className={classes.containerClasses} style={{ maxHeight: 200, overflow: 'auto' }}>
+            <Grid container className={classes.containerClasses} style={{ maxHeight: 240, overflow: 'auto' }}>
               <Grid item xs={12} sm={12}>
                 <BaseMapSelect
                   getBaseLayer={getBaseLayer}
