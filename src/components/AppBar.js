@@ -1,40 +1,40 @@
-import React, { useState } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import React, { useState } from 'react'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import InputBase from '@material-ui/core/InputBase'
+import { fade, makeStyles } from '@material-ui/core/styles'
+import MenuIcon from '@material-ui/icons/Menu'
+import SearchIcon from '@material-ui/icons/Search'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   title: {
     flexGrow: 1,
     display: 'none',
     [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+      display: 'block'
+    }
   },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: fade(theme.palette.common.white, 0.25)
     },
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
+      width: 'auto'
+    }
   },
   searchIcon: {
     width: theme.spacing(7),
@@ -43,10 +43,10 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   inputRoot: {
-    color: 'inherit',
+    color: 'inherit'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 2),
@@ -55,48 +55,51 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       width: 120,
       '&:focus': {
-        width: 200,
-      },
-    },
-  },
-}));
+        width: 200
+      }
+    }
+  }
+}))
 
-export default function SearchAppBar(props) {
-
+export default function SearchAppBar (props) {
   const [addressSearch, setAddressSearch] = useState('')
 
-  const classes = useStyles();
+  const classes = useStyles()
 
-  const handleSearch = (event) => {
-    event.preventDefault();
+  const handleSearch = event => {
+    event.preventDefault()
     console.log(addressSearch)
-    props.handleSearch(addressSearch);
+    props.handleSearch(addressSearch)
   }
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position='static'>
         <Toolbar>
           <IconButton
-            edge="start"
+            edge='start'
             className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
+            color='inherit'
+            aria-label='open drawer'
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography className={classes.title} variant='h6' noWrap>
             Enter company name/address
           </Typography>
-          <IconButton className={classes.iconButton} aria-label="search" onClick={handleSearch}>
+          <IconButton
+            className={classes.iconButton}
+            aria-label='search'
+            onClick={handleSearch}
+          >
             <SearchIcon />
           </IconButton>
           <div className={classes.search}>
             <InputBase
-              placeholder="Search…"
+              placeholder='Search…'
               classes={{
                 root: classes.inputRoot,
-                input: classes.inputInput,
+                input: classes.inputInput
               }}
               inputProps={{ 'aria-label': 'search' }}
               onChange={e => setAddressSearch(e.target.value)}
@@ -105,5 +108,5 @@ export default function SearchAppBar(props) {
         </Toolbar>
       </AppBar>
     </div>
-  );
+  )
 }
