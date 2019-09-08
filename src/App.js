@@ -6,6 +6,7 @@ import AppBar from './components/AppBar.js'
 import { makeStyles } from '@material-ui/core/styles'
 import LocationMap from './components/Maps/Location.js'
 import BaseMapSelect from './components/BaseMapSelect.js'
+import BaseMapSelectDrawer from './components/BaseMapSelectDrawer.js'
 import toast from 'toasted-notes'
 import 'toasted-notes/src/styles.css'
 import changeCase from 'change-case'
@@ -46,6 +47,7 @@ const App = () => {
   const [resState, setResState] = useState('')
   const [resZip, setResZip] = useState('')
   const [inputError, setInputError] = useState('')
+  const [drawerState, setDrawerState] = React.useState(false)
   const [baseMap, setBaseMap] = useState('OpenStreetMap')
 
   const classes = useStyles()
@@ -88,6 +90,17 @@ const App = () => {
     return baseMapObj
   }
 
+  const toggleDrawer = () => event => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return
+    }
+    console.log(event)
+    setDrawerState(!drawerState)
+  }
+
   const reportError = () => {
     toast.notify(inputError)
     setInputError('')
@@ -97,9 +110,17 @@ const App = () => {
     <div className='App'>
       <div className={classes.root}>
         {inputError && reportError()}
+        <BaseMapSelectDrawer
+          toggleDrawer={toggleDrawer}
+          drawerState={drawerState}
+        />
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12}>
-            <AppBar handleSearch={geocodeSearch} />
+            <AppBar
+              handleSearch={geocodeSearch}
+              drawerState={drawerState}
+              toggleDrawer={toggleDrawer}
+            />
           </Grid>
           <Grid item xs={12} sm={4}>
             <Grid container className={classes.containerClasses}>

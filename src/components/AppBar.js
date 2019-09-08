@@ -68,7 +68,6 @@ export default function SearchAppBar (props) {
 
   const handleSearch = event => {
     event.preventDefault()
-    console.log(addressSearch)
     props.handleSearch(addressSearch)
   }
 
@@ -81,6 +80,7 @@ export default function SearchAppBar (props) {
             className={classes.menuButton}
             color='inherit'
             aria-label='open drawer'
+            onClick={props.toggleDrawer()}
           >
             <MenuIcon />
           </IconButton>
