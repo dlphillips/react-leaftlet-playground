@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
+import Drawer from '@material-ui/core/Drawer'
 
 import Radio from '@material-ui/core/Radio'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -11,33 +10,25 @@ import FormControl from '@material-ui/core/FormControl'
 
 import * as tileLayers from './Maps/tileLayers.json'
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+const useStyles = makeStyles({
+  list: {
+    width: 275,
+    padding: '10px'
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%',
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  },
-  group: {
-    margin: theme.spacing(1, 0)
+  fullList: {
+    width: 'auto'
   }
-}))
+})
 
-const BaseMapSelect = props => {
+export default function TemporaryDrawer (props) {
+  const classes = useStyles()
+
   const [baseMap, setBaseMap] = useState('')
 
-  const classes = useStyles()
+  const baseMapChange = newBaseMap => {
+    setBaseMap(newBaseMap)
+    props.getBaseLayer(newBaseMap)
+  }
 
   const RenderLayerOptions = () => {
     return tileLayers.layers.map(layer => (
@@ -51,17 +42,14 @@ const BaseMapSelect = props => {
     ))
   }
 
-  const baseMapChange = newBaseMap => {
-    setBaseMap(newBaseMap)
-    props.getBaseLayer(newBaseMap)
-  }
-
-  return (
-    <FormControl component='fieldset'>
-      <Typography variant='h6' gutterBottom>
-        Select Base Map
-      </Typography>
-      <Grid item xs={12}>
+  const sideList = side => (
+    <div
+      className={classes.list}
+      role='presentation'
+      onClick={props.toggleDrawer()}
+      onKeyDown={props.toggleDrawer()}
+    >
+      <FormControl component='fieldset'>
         <RadioGroup
           aria-label='base map'
           name='baseMap'
@@ -71,9 +59,14 @@ const BaseMapSelect = props => {
         >
           {RenderLayerOptions()}
         </RadioGroup>
-      </Grid>
-    </FormControl>
+      </FormControl>
+    </div>
+  )
+  return (
+    <div>
+      <Drawer open={props.drawerState} onClose={props.toggleDrawer()}>
+        {sideList('left')}
+      </Drawer>
+    </div>
   )
 }
-
-export default BaseMapSelect
