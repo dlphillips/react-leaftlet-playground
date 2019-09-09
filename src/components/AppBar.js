@@ -85,7 +85,7 @@ export default function SearchAppBar (props) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant='h6' noWrap>
-            Enter company name/address
+            React-Leaflet Playground
           </Typography>
           <IconButton
             className={classes.iconButton}

@@ -5,7 +5,6 @@ import Grid from '@material-ui/core/Grid'
 import AppBar from './components/AppBar.js'
 import { makeStyles } from '@material-ui/core/styles'
 import LocationMap from './components/Maps/Location.js'
-import BaseMapSelect from './components/BaseMapSelect.js'
 import BaseMapSelectDrawer from './components/BaseMapSelectDrawer.js'
 import toast from 'toasted-notes'
 import 'toasted-notes/src/styles.css'
@@ -113,6 +112,7 @@ const App = () => {
         <BaseMapSelectDrawer
           toggleDrawer={toggleDrawer}
           drawerState={drawerState}
+          getBaseLayer={getBaseLayer}
         />
         <Grid container spacing={1}>
           <Grid item xs={12} sm={12}>
@@ -122,14 +122,7 @@ const App = () => {
               toggleDrawer={toggleDrawer}
             />
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Grid container className={classes.containerClasses}>
-              <Grid item xs={12} sm={12}>
-                <BaseMapSelect getBaseLayer={getBaseLayer} />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={12} sm={12}>
             <LocationMap
               lat={lat}
               lng={lng}

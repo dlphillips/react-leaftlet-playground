@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+
+import Radio from '@material-ui/core/Radio'
+import Tooltip from '@material-ui/core/Tooltip'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
+
+import * as tileLayers from './Maps/tileLayers.json'
 
 const useStyles = makeStyles({
   list: {
-    width: 250
+    width: 275,
+    padding: '10px'
   },
   fullList: {
     width: 'auto'
@@ -17,7 +23,24 @@ const useStyles = makeStyles({
 export default function TemporaryDrawer (props) {
   const classes = useStyles()
 
-  console.log(props.drawerState)
+  const [baseMap, setBaseMap] = useState('')
+
+  const baseMapChange = newBaseMap => {
+    setBaseMap(newBaseMap)
+    props.getBaseLayer(newBaseMap)
+  }
+
+  const RenderLayerOptions = () => {
+    return tileLayers.layers.map(layer => (
+      <Tooltip title={layer.name} placement='top' key={layer.name}>
+        <FormControlLabel
+          value={layer.name}
+          control={<Radio />}
+          label={layer.name}
+        />
+      </Tooltip>
+    ))
+  }
 
   const sideList = side => (
     <div
@@ -26,18 +49,19 @@ export default function TemporaryDrawer (props) {
       onClick={props.toggleDrawer()}
       onKeyDown={props.toggleDrawer()}
     >
-      <List>
-        {['Base Map 1', 'Base Map 2', 'Base Map 3', 'Base Map 4'].map(
-          (text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          )
-        )}
-      </List>
+      <FormControl component='fieldset'>
+        <RadioGroup
+          aria-label='base map'
+          name='baseMap'
+          className={classes.group}
+          value={baseMap}
+          onChange={e => baseMapChange(e.target.value)}
+        >
+          {RenderLayerOptions()}
+        </RadioGroup>
+      </FormControl>
     </div>
   )
-
   return (
     <div>
       <Drawer open={props.drawerState} onClose={props.toggleDrawer()}>
