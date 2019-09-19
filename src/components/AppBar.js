@@ -7,6 +7,9 @@ import InputBase from '@material-ui/core/InputBase'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
+import Switch from '@material-ui/core/Switch'
+import FormGroup from '@material-ui/core/FormGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,6 +68,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchAppBar (props) {
   const [addressSearch, setAddressSearch] = useState('')
+  const [heatMap, setHeatMap] = React.useState(false)
+
   const noop = () => {}
 
   const classes = useStyles()
@@ -72,6 +77,10 @@ export default function SearchAppBar (props) {
   const handleSearch = event => {
     event.preventDefault()
     props.handleSearch(addressSearch)
+  }
+
+  const toggleHeatMap = () => {
+    setHeatMap(prev => !prev)
   }
 
   return (
@@ -87,6 +96,12 @@ export default function SearchAppBar (props) {
           >
             <MenuIcon />
           </IconButton>
+          <FormGroup>
+            <FormControlLabel
+              control={<Switch checked={heatMap} onChange={toggleHeatMap} />}
+              label='Toggle Heat Map'
+            />
+          </FormGroup>
           <Typography className={classes.title} variant='h6' noWrap>
             React-Leaflet Playground
           </Typography>

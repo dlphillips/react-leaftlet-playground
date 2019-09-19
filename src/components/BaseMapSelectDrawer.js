@@ -50,6 +50,7 @@ export default function TemporaryDrawer (props) {
       onKeyDown={props.toggleDrawer()}
     >
       <FormControl component='fieldset'>
+        <h3>Select Base Map</h3>
         <RadioGroup
           aria-label='base map'
           name='baseMap'
