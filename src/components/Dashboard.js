@@ -96,7 +96,7 @@ const Dashboard = () => {
     ) {
       return
     }
-    console.log(event)
+    console.log(event.type)
     setDrawerState(!drawerState)
   }
 

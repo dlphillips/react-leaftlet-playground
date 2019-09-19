@@ -43,7 +43,9 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    color: 'white',
+    paddingLeft: '15px'
   },
   inputRoot: {
     color: 'inherit'
@@ -63,6 +65,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchAppBar (props) {
   const [addressSearch, setAddressSearch] = useState('')
+  const noop = () => {}
 
   const classes = useStyles()
 
@@ -87,14 +90,14 @@ export default function SearchAppBar (props) {
           <Typography className={classes.title} variant='h6' noWrap>
             React-Leaflet Playground
           </Typography>
-          <IconButton
-            className={classes.iconButton}
-            aria-label='search'
-            onClick={handleSearch}
-          >
-            <SearchIcon />
-          </IconButton>
           <div className={classes.search}>
+            <IconButton
+              className={classes.iconButton}
+              aria-label='search'
+              onClick={handleSearch}
+            >
+              <SearchIcon className={classes.searchIcon} />
+            </IconButton>
             <InputBase
               placeholder='Search…'
               classes={{
@@ -103,6 +106,7 @@ export default function SearchAppBar (props) {
               }}
               inputProps={{ 'aria-label': 'search' }}
               onChange={e => setAddressSearch(e.target.value)}
+              onKeyPress={e => (e.key === 'Enter' ? handleSearch(e) : noop)}
             />
           </div>
         </Toolbar>
