@@ -68,7 +68,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchAppBar (props) {
   const [addressSearch, setAddressSearch] = useState('')
-  const [heatMap, setHeatMap] = React.useState(false)
 
   const noop = () => {}
 
@@ -77,10 +76,6 @@ export default function SearchAppBar (props) {
   const handleSearch = event => {
     event.preventDefault()
     props.handleSearch(addressSearch)
-  }
-
-  const toggleHeatMap = () => {
-    setHeatMap(prev => !prev)
   }
 
   return (
@@ -98,7 +93,12 @@ export default function SearchAppBar (props) {
           </IconButton>
           <FormGroup>
             <FormControlLabel
-              control={<Switch checked={heatMap} onChange={toggleHeatMap} />}
+              control={
+                <Switch
+                  checked={props.heatMap}
+                  onChange={props.handleToggleHeatMap}
+                />
+              }
               label='Toggle Heat Map'
             />
           </FormGroup>
