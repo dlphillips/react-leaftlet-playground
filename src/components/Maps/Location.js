@@ -6,11 +6,11 @@ dotenv.config()
 const tfKey = process.env.REACT_APP_THUNDERFOREST_KEY
 
 const LocationMap = props => {
-  const position = [props.lat, props.lng]
-  const { baseMap, street, city, state, zip } = props
+  const { baseMap, street, city, state, zip, onMapMove, lat, lng } = props
+  const position = [lat, lng]
 
   return (
-    <Map center={position} zoom={Number(props.zoom)}>
+    <Map center={position} zoom={Number(props.zoom)} onMoveend={onMapMove}>
       <TileLayer
         attribution={baseMap.attribution}
         url={baseMap.apiKey ? `${baseMap.url}?apikey=${tfKey}` : baseMap.url}

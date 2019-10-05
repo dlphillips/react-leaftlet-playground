@@ -42,6 +42,7 @@ const Dashboard = () => {
 
   const [lng, setLng] = useState(175.46787915)
   const [lat, setLat] = useState(-37.8811556833)
+  const [zoom, setZoom] = useState(10)
   const [resStreet, setResStreet] = useState('')
   const [resCity, setResCity] = useState('')
   const [resState, setResState] = useState('')
@@ -95,6 +96,15 @@ const Dashboard = () => {
     setHeatMap(prev => !prev)
   }
 
+  const handleMapMove = e => {
+    const newZoom = e.target.getZoom()
+    const { lng, lat } = e.target.getCenter()
+
+    setZoom(newZoom)
+    setLng(lng)
+    setLat(lat)
+  }
+
   const toggleDrawer = () => event => {
     if (
       event.type === 'keydown' &&
@@ -141,8 +151,9 @@ const Dashboard = () => {
                 city={resCity}
                 state={resState}
                 zip={resZip}
-                zoom='13'
+                zoom={zoom}
                 baseMap={getBaseMapObject(baseMap)}
+                onMapMove={handleMapMove}
               />
             )}
             {heatMap && (
@@ -153,8 +164,9 @@ const Dashboard = () => {
                 city={resCity}
                 state={resState}
                 zip={resZip}
-                zoom='13'
+                zoom={zoom}
                 baseMap={getBaseMapObject(baseMap)}
+                onMapMove={handleMapMove}
               />
             )}
           </Grid>

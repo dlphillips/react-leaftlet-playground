@@ -9,15 +9,13 @@ dotenv.config()
 const tfKey = process.env.REACT_APP_THUNDERFOREST_KEY
 
 const HeatMap = props => {
-  const position = [props.lat, props.lng]
-  const { baseMap, street, city, state, zip } = props
+  const { baseMap, street, city, state, zip, onMapMove, lat, lng } = props
+  const position = [lat, lng]
 
   return (
     <div>
-      <Map center={position} zoom={Number(props.zoom)}>
+      <Map center={position} zoom={Number(props.zoom)} onMoveend={onMapMove}>
         <HeatmapLayer
-          // fitBoundsOnLoad
-          // fitBoundsOnUpdate
           points={addressPoints}
           longitudeExtractor={m => m[1]}
           latitudeExtractor={m => m[0]}
