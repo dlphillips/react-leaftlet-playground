@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import AppBar from './AppBar.js'
 import { makeStyles } from '@material-ui/core/styles'
 import LocationMap from './Maps/Location.js'
+import HeatMap from './Maps/HeatMap.js'
 import BaseMapSelectDrawer from './BaseMapSelectDrawer.js'
 import toast from 'toasted-notes'
 import 'toasted-notes/src/styles.css'
@@ -39,8 +40,9 @@ const Dashboard = () => {
   dotenv.config()
   const mqKey = process.env.REACT_APP_MAPQUEST_KEY
 
-  const [lng, setLng] = useState(-85)
-  const [lat, setLat] = useState(34)
+  const [lng, setLng] = useState(175.46787915)
+  const [lat, setLat] = useState(-37.8811556833)
+  const [zoom, setZoom] = useState(10)
   const [resStreet, setResStreet] = useState('')
   const [resCity, setResCity] = useState('')
   const [resState, setResState] = useState('')
@@ -48,6 +50,7 @@ const Dashboard = () => {
   const [inputError, setInputError] = useState('')
   const [drawerState, setDrawerState] = React.useState(false)
   const [baseMap, setBaseMap] = useState('OpenStreetMap')
+  const [heatMap, setHeatMap] = React.useState(false)
 
   const classes = useStyles()
 
@@ -89,6 +92,19 @@ const Dashboard = () => {
     return baseMapObj
   }
 
+  const toggleHeatMap = () => {
+    setHeatMap(prev => !prev)
+  }
+
+  const handleMapMove = e => {
+    const newZoom = e.target.getZoom()
+    const { lng, lat } = e.target.getCenter()
+
+    setZoom(newZoom)
+    setLng(lng)
+    setLat(lat)
+  }
+
   const toggleDrawer = () => event => {
     if (
       event.type === 'keydown' &&
@@ -96,7 +112,7 @@ const Dashboard = () => {
     ) {
       return
     }
-    console.log(event)
+    console.log(event.type)
     setDrawerState(!drawerState)
   }
 
@@ -104,6 +120,8 @@ const Dashboard = () => {
     toast.notify(inputError)
     setInputError('')
   }
+
+  console.log('heatMap: ', heatMap)
 
   return (
     <div className='App'>
@@ -120,19 +138,37 @@ const Dashboard = () => {
               handleSearch={geocodeSearch}
               drawerState={drawerState}
               toggleDrawer={toggleDrawer}
+              handleToggleHeatMap={toggleHeatMap}
+              heatMap={heatMap}
             />
           </Grid>
           <Grid item xs={12} sm={12}>
-            <LocationMap
-              lat={lat}
-              lng={lng}
-              street={resStreet}
-              city={resCity}
-              state={resState}
-              zip={resZip}
-              zoom='13'
-              baseMap={getBaseMapObject(baseMap)}
-            />
+            {!heatMap && (
+              <LocationMap
+                lat={lat}
+                lng={lng}
+                street={resStreet}
+                city={resCity}
+                state={resState}
+                zip={resZip}
+                zoom={zoom}
+                baseMap={getBaseMapObject(baseMap)}
+                onMapMove={handleMapMove}
+              />
+            )}
+            {heatMap && (
+              <HeatMap
+                lat={lat}
+                lng={lng}
+                street={resStreet}
+                city={resCity}
+                state={resState}
+                zip={resZip}
+                zoom={zoom}
+                baseMap={getBaseMapObject(baseMap)}
+                onMapMove={handleMapMove}
+              />
+            )}
           </Grid>
         </Grid>
       </div>
