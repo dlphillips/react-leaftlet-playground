@@ -95,11 +95,12 @@ export default function SearchAppBar (props) {
             <FormControlLabel
               control={
                 <Switch
+                  color='secondary'
                   checked={props.heatMap}
                   onChange={props.handleToggleHeatMap}
                 />
               }
-              label='Toggle Heat Map'
+              label='Heat Map'
             />
           </FormGroup>
           <Typography className={classes.title} variant='h6' noWrap>
