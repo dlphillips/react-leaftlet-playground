@@ -112,7 +112,6 @@ const Dashboard = () => {
     ) {
       return
     }
-    console.log(event.type)
     setDrawerState(!drawerState)
   }
 
@@ -120,8 +119,6 @@ const Dashboard = () => {
     toast.notify(inputError)
     setInputError('')
   }
-
-  console.log('heatMap: ', heatMap)
 
   return (
     <div className='App'>
