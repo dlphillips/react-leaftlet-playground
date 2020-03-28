@@ -16,6 +16,7 @@ const LocationMap = props => {
         url={baseMap.apiKey ? `${baseMap.url}?apikey=${tfKey}` : baseMap.url}
       />
       <Marker position={position}>
+        {!street && <Popup>{`Lat: ${lat} Lon: ${lng}`}</Popup>}
         {street && (
           <Popup>
             {street} <br /> {`${city}, ${state} ${zip}`}
