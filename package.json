@@ -18,7 +18,7 @@
     "react-dom": "^16.9.0",
     "react-leaflet": "^2.4.0",
     "react-leaflet-heatmap-layer": "^2.0.0",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^5.0.1",
     "react-spring": "^8.0.27",
     "snazzy": "^8.0.0",
     "toasted-notes": "^3.0.0"
